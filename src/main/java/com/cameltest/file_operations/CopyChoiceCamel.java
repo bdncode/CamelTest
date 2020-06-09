@@ -15,16 +15,16 @@ public class CopyChoiceCamel {
         context.addRoutes(new RouteBuilder() {
             public void configure() {
             from("file:data/inbox?noop=true")
-                    .wireTap("file:data/initialFolder")
+                    .wireTap("file:data/inbox original")
                 .choice()
                     .when(header("CamelFileName").endsWith(".xml"))
-                        .to("file:data/outbox_xml")
+                        .to("file:data/outbox xml")
                     .when(header("CamelFileName").endsWith(".txt"))
-                        .to("file:data/outbox_txt")
+                        .to("file:data/outbox txt")
                     .otherwise()
-                        .to("file:data/outbox_other").stop()
+                        .to("file:data/outbox other").stop()
                     .end()
-                        .to("file:data/continuedProcessing");
+                        .to("file:data/continued processing");
             }
         });
 
