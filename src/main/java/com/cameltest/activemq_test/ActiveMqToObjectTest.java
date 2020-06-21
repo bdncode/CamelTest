@@ -7,8 +7,10 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.impl.DefaultCamelContext;
 import javax.jms.ConnectionFactory;
+import java.util.logging.Logger;
 
 public class ActiveMqToObjectTest {
+    private static Logger logger = Logger.getLogger(ActiveMqToObjectTest.class.getName());
 
     public static void main(String[] args) throws Exception {
 
@@ -30,6 +32,6 @@ public class ActiveMqToObjectTest {
         ConsumerTemplate consumerTemplate = context.createConsumerTemplate();
         String consumerBody = consumerTemplate.receiveBody("seda:end", String.class);
 
-        System.out.println(consumerBody);
+        logger.info(consumerBody);
     }
 }

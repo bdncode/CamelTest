@@ -10,9 +10,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class TreeMapWithCamel {
+    private static Logger logger = Logger.getLogger(TreeMapWithCamel.class.getName());
+
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
@@ -40,15 +43,15 @@ public class TreeMapWithCamel {
 
                                     // Print keys
                                     for (String i : treeMap.keySet()) {
-                                        System.out.println(i);
+                                        logger.info(i);
                                     }
                                     // Print values
                                     for (int i : treeMap.values()) {
-                                        System.out.println(i);
+                                        logger.info(String.valueOf(i));
                                     }
                                     // Print keys and values
                                     for (String i : treeMap.keySet()) {
-                                        System.out.println("key: " + i + " value: " + treeMap.get(i));
+                                        logger.info("key: " + i + " value: " + treeMap.get(i));
                                     }
 
                                     Optional<String> optionalFindValue = treeMap.entrySet().stream()
@@ -71,9 +74,9 @@ public class TreeMapWithCamel {
         context.start();
 
         ConsumerTemplate consumerTemplate = context.createConsumerTemplate();
-        String consumerBody1 = consumerTemplate.receiveBody("seda:end", String.class);
+        String consumerBody = consumerTemplate.receiveBody("seda:end", String.class);
 
-        System.out.println(consumerBody1);
+        logger.info(consumerBody);
     }
 }
 

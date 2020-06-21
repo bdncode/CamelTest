@@ -10,9 +10,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ListWithCamel {
+    private static Logger logger = Logger.getLogger(ListWithCamel.class.getName());
+
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
@@ -48,7 +51,7 @@ public class ListWithCamel {
         ConsumerTemplate consumerTemplate = context.createConsumerTemplate();
         String consumerBody = consumerTemplate.receiveBody("seda:end", String.class);
         consumerBody = consumerBody.replaceAll("[^-?0-9]+", " ");
-        System.out.println(consumerBody);
+        logger.info(consumerBody);
         Set<Integer> hashSet = new HashSet<>();
 
         List<Integer> arrayList = new ArrayList<>();
@@ -79,17 +82,17 @@ public class ListWithCamel {
 
         int num = (int) linkedList.stream()
                 .filter(i -> i<3).count();
-        System.out.println(num);
+        logger.info(String.valueOf(num));
 
 
         String stringMax = arrayList.stream()
                 .reduce(0, Integer::max).toString().toUpperCase();
-        System.out.println(stringMax);
+        logger.info(stringMax);
 
 
         int sumResult = linkedList.stream()
                 .reduce(0, Integer::sum);
-        System.out.println(sumResult);
+        logger.info(String.valueOf(sumResult));
 
 
         List<Integer> doubleValueList = linkedList.stream()

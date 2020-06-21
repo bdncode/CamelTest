@@ -10,9 +10,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 
 public class LinkedHashSetWithCamel {
+    private static Logger logger = Logger.getLogger(LinkedHashSetWithCamel.class.getName());
+
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
@@ -48,7 +51,7 @@ public class LinkedHashSetWithCamel {
         ConsumerTemplate consumerTemplate = context.createConsumerTemplate();
         String consumerBody = consumerTemplate.receiveBody("seda:end", String.class);
         consumerBody = consumerBody.replaceAll("[^-?0-9]+", " ");
-        System.out.println(consumerBody);
+        logger.info(consumerBody);
 
         Set<Integer> linkedHashSet = new LinkedHashSet<>();
         List<Integer> integerList = new ArrayList<>();
@@ -73,8 +76,9 @@ public class LinkedHashSetWithCamel {
 
         for (Iterator<Integer> it = linkedHashSet.iterator(); it.hasNext(); ) {
             Integer i = it.next();
-            System.out.println(i);
+            logger.info(String.valueOf(i));
         }
+
         System.out.println(listFindValue);
     }
 }
