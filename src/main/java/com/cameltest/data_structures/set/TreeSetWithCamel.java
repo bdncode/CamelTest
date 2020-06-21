@@ -10,9 +10,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 
 public class TreeSetWithCamel {
+    private static Logger logger = Logger.getLogger(TreeSetWithCamel.class.getName());
+
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
@@ -48,7 +51,7 @@ public class TreeSetWithCamel {
         ConsumerTemplate consumerTemplate = context.createConsumerTemplate();
         String consumerBody = consumerTemplate.receiveBody("seda:end", String.class);
         consumerBody = consumerBody.replaceAll("[^-?0-9]+", " ");
-        System.out.println(consumerBody);
+        logger.info(consumerBody);
 
         Set<Integer> treeSet = new TreeSet<>();
         List<Integer> integerList = new ArrayList<>();
@@ -73,7 +76,7 @@ public class TreeSetWithCamel {
 
         for (Iterator<Integer> it = treeSet.iterator(); it.hasNext(); ) {
             Integer i = it.next();
-            System.out.println(i);
+            logger.info(String.valueOf(i));
         }
 
         System.out.println(listFindValue);

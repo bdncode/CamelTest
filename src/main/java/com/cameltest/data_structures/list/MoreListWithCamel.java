@@ -10,14 +10,15 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class MoreListWithCamel {
-    public static void main(String args[]) throws Exception {
-        // create CamelContext
-        CamelContext context = new DefaultCamelContext();
+    private static Logger logger = Logger.getLogger(MoreListWithCamel.class.getName());
 
-        // add our route to the CamelContext
+    public static void main(String args[]) throws Exception {
+
+        CamelContext context = new DefaultCamelContext();
         context.addRoutes(new RouteBuilder() {
             public void configure() {
             from("file:data/inbox?noop=true")
@@ -47,7 +48,7 @@ public class MoreListWithCamel {
 
         ConsumerTemplate consumerTemplate = context.createConsumerTemplate();
         String consumerBody = consumerTemplate.receiveBody("seda:end", String.class);
-        System.out.println(consumerBody);
+        logger.info(consumerBody);
 
         List<String> arrayList = new ArrayList<>();
         consumerBody = consumerBody.substring(1,consumerBody.length()-1);
@@ -68,7 +69,7 @@ public class MoreListWithCamel {
 
         String stringConcatenated = arrayList.stream()
                 .reduce("", String::concat).toUpperCase();
-        System.out.println(stringConcatenated);
+        logger.info(stringConcatenated);
 
 
         List<String> searchList = arrayList.stream()

@@ -8,16 +8,17 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.json.JSONObject;
-import org.json.XML;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class HashMapWithCamel {
+    private static Logger logger = Logger.getLogger(HashMapWithCamel.class.getName());
+
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
@@ -45,15 +46,15 @@ public class HashMapWithCamel {
 
                                     // Print keys
                                     for (String i : hashMap.keySet()) {
-                                        System.out.println(i);
+                                        logger.info(i);
                                     }
                                     // Print values
                                     for (int i : hashMap.values()) {
-                                        System.out.println(i);
+                                        logger.info(String.valueOf(i));
                                     }
                                     // Print keys and values
                                     for (String i : hashMap.keySet()) {
-                                        System.out.println("key: " + i + " value: " + hashMap.get(i));
+                                        logger.info("key: " + i + " value: " + hashMap.get(i));
                                     }
 
                                     Optional<String> optionalFindValue = hashMap.entrySet().stream()
@@ -76,9 +77,9 @@ public class HashMapWithCamel {
         context.start();
 
         ConsumerTemplate consumerTemplate = context.createConsumerTemplate();
-        String consumerBody1 = consumerTemplate.receiveBody("seda:end", String.class);
+        String consumerBody = consumerTemplate.receiveBody("seda:end", String.class);
 
-        System.out.println(consumerBody1);
+        logger.info(consumerBody);
     }
 }
 
