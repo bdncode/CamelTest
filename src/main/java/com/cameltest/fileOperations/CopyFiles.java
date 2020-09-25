@@ -7,8 +7,8 @@ import org.apache.camel.impl.DefaultCamelContext;
 
 import java.util.logging.Logger;
 
-public class CopyFilesCamel {
-    private static final Logger logger = Logger.getLogger(CopyFilesCamel.class.getName());
+public class CopyFiles {
+    private static final Logger logger = Logger.getLogger(CopyFiles.class.getName());
 
     public static void main(String args[]) {
         // create CamelContext

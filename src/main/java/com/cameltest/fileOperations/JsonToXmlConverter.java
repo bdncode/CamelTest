@@ -10,8 +10,8 @@ import org.json.XML;
 
 import java.util.logging.Logger;
 
-public class JsonToXmlWithCamel {
-    private static final Logger logger = Logger.getLogger(JsonToXmlWithCamel.class.getName());
+public class JsonToXmlConverter {
+    private static final Logger logger = Logger.getLogger(JsonToXmlConverter.class.getName());
 
     public static void main(String args[]){
         // create CamelContext

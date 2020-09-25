@@ -9,7 +9,6 @@ public class ProducerAndConsumer {
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
-        CamelContext contextWithProcess = new DefaultCamelContext();
 
         // Create new RouteBuilder and
         // add our route to the CamelContext
