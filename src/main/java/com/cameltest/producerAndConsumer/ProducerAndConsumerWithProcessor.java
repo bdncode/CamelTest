@@ -1,10 +1,10 @@
-package com.cameltest.producer_consumer;
+package com.cameltest.producerAndConsumer;
 
 import org.apache.camel.*;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
-public class ProducerAndConsumerTestWithProcessor {
+public class ProducerAndConsumerWithProcessor {
 
     public static void main(String args[]) throws Exception {
         // create CamelContext

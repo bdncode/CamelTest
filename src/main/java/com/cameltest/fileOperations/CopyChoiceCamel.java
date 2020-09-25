@@ -1,15 +1,19 @@
-package com.cameltest.file_operations;
+package com.cameltest.fileOperations;
 
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
 
+import java.util.logging.Logger;
+
 public class CopyChoiceCamel {
+    private static final Logger logger = Logger.getLogger(CopyChoiceCamel.class.getName());
 
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
+        final String activeMqUrl = "http://localhost:8161/admin/queues.jsp";
 
         // add our route to the CamelContext
         context.addRoutes(new RouteBuilder() {
@@ -30,6 +34,7 @@ public class CopyChoiceCamel {
 
         // start the route and let it do its work
         context.start();
+        logger.info("ActiveMQ on " + activeMqUrl);
         Thread.sleep(2000);
 
         // stop the CamelContext
