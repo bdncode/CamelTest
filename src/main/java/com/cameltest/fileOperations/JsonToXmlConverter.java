@@ -16,13 +16,14 @@ public class JsonToXmlConverter {
     public static void main(String args[]){
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
-        final String activeMqUrl = "http://localhost:8161/admin/queues.jsp";
+        final String originFolder = "data/inbox";
+        final String job = "converting files";
 
         // add our route to the CamelContext
         try {
             context.addRoutes(new RouteBuilder() {
                 public void configure() {
-                    from("file:data/inbox?noop=true")
+                    from("file:" + originFolder + "?noop=true")
                         .choice()
                             .when(header("CamelFileName").endsWith(".json"))
                                 .process(new Processor() {
@@ -54,7 +55,7 @@ public class JsonToXmlConverter {
 
         try {
             context.start();
-            logger.info("ActiveMQ on " + activeMqUrl);
+            logger.info("Camel " + job + " from "+ originFolder);
             Thread.sleep(2000);
 
             // stop the CamelContext

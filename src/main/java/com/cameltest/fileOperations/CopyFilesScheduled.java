@@ -1,21 +1,24 @@
 package com.cameltest.fileOperations;
 
-
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
 
 import java.util.logging.Logger;
 
-public class CopyFiles {
+public class CopyFilesScheduled implements Job {
     private static final Logger logger = Logger.getLogger(CopyFiles.class.getName());
 
-    public static void main(String args[]) {
+        @Override
+        public void execute(JobExecutionContext jobExecutionContext) {
+
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
         final String originFolder = "data/inbox";
         final String destinyFolder = "data/outbox";
-        final String job = "copying files";
+        final String job = "updating files";
 
         // add the route to the CamelContext
         try {

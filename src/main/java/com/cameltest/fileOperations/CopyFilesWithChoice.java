@@ -13,12 +13,13 @@ public class CopyFilesWithChoice {
     public static void main(String args[]) throws Exception {
         // create CamelContext
         CamelContext context = new DefaultCamelContext();
-        final String activeMqUrl = "http://localhost:8161/admin/queues.jsp";
+        final String originFolder = "data/inbox";
+        final String job = "copying files";
 
         // add our route to the CamelContext
         context.addRoutes(new RouteBuilder() {
             public void configure() {
-            from("file:data/inbox?noop=true")
+            from("file:" + originFolder + "?noop=true")
                     .wireTap("file:data/inbox original")
                 .choice()
                     .when(header("CamelFileName").endsWith(".xml"))
@@ -34,7 +35,7 @@ public class CopyFilesWithChoice {
 
         // start the route and let it do its work
         context.start();
-        logger.info("ActiveMQ on " + activeMqUrl);
+        logger.info("Camel " + job + " from "+ originFolder);
         Thread.sleep(2000);
 
         // stop the CamelContext
